@@ -1,31 +1,39 @@
 import Tablero.CasilleroPropiedad
-class Jugador {
+class Entidades {
+	var property dinero
+	
+	method pagarA(alguien,unMonto) {
+		alguien.cobrar(unMonto)
+		dinero -= unMonto
+	}
+	
+	method cobrar(unMonto) {
+		dinero += unMonto
+	}
+}
 
 
-	var property dinero = 0
+class Jugador inherits Entidades {
+
 	const property propiedades = #{}
 	var property posicion
 	var property cantidadDeEmpresas = 0
 	
-	method cantidadDeEmpresas() {
-		return propiedades.sum()
-	}
+	
 	
 	method caerEnPropiedad(unaPropiedad) {
 		posicion = unaPropiedad
 			
 		if(unaPropiedad.suDuenioEs(banco)) {
-			self.comprarPropiedad(unaPropiedad)
-		}
+			self.comprarPropiedad(unaPropiedad)}
+			
 		if(!unaPropiedad.suDuenioEs(self)) {
-			self.abonarRenta(unaPropiedad)		
-		}
+			self.abonarRenta(unaPropiedad)}
 		
-		unaPropiedad.caeAca(self) 
+		unaPropiedad.rentaPara(self) 
 	}
 	
 	
-		
 	
 	
 	method abonarRenta(unaPropiedad) {
@@ -58,9 +66,7 @@ class Jugador {
 		self.pagarA(banco,unCampo.costoConstruccion())
 	}
 	
-	method pagarA(alguien,unMonto) {
-		alguien.cobrar(unMonto)
-	}
+
 	
 	method tirarDados() {
 		const dado1 = 1.randomUpTo(6.0).roundUp()
@@ -72,13 +78,16 @@ class Jugador {
 
 }
 
-object banco {
-	var property plata
+object banco inherits Entidades(dinero = 1000000){
+	override method pagarA(unJugador,unMonto) {
+		self.validarPago(unMonto)
+		super(unJugador,unMonto)
+	}
 	
-	
-	method cobrar(unMonto) {
-		plata += unMonto
+	method validarPago(unaCantidad) {
+		if(unaCantidad > dinero) {
+			throw new Exception(message = "el banco no te puede pagar")
+		}
 	}
 
-	
 }

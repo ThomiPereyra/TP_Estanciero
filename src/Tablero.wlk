@@ -18,7 +18,9 @@ class CasilleroPropiedad {
 	
 	method sosEmpresa()
 	
-	method caeAca(unJugador)
+	
+	
+	method rentaPara(_unJugador)
 	
 	
 }
@@ -29,7 +31,7 @@ class Empresa inherits CasilleroPropiedad {
 		return true
 	}
 	
-	override method caeAca(unJugador) {
+	override method rentaPara(unJugador) {
 		
 		unJugador.pagarA(duenio, unJugador.tirarDados() * renta * duenio.cantidadDeEmpresas())
 	}
@@ -65,7 +67,7 @@ class Campo inherits CasilleroPropiedad {
 	}
 	
 	
-	method rentaSegunCantDeEstancias() {
+	override method rentaPara(_unJugador) {
 		return (2**self.totalDeEstancias()) * rentaFija
 	}
 
