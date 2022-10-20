@@ -1,12 +1,11 @@
 import Jugador.banco
-
 object tablero {
 	const property casilleros = #{}
-	// PRUEBA commit
+	
 }
 class CasilleroPropiedad {
 	const property precioInicial
-	var property duenio = banco
+	var property duenio 
 	var property renta
 	
 	method suDuenioEs(unPosibleDuenio) {
@@ -19,12 +18,20 @@ class CasilleroPropiedad {
 	
 	method sosEmpresa()
 	
+	method caeAca(unJugador)
+	
+	
 }
 
 class Empresa inherits CasilleroPropiedad {
 	
 	override method sosEmpresa() {
 		return true
+	}
+	
+	override method caeAca(unJugador) {
+		
+		unJugador.pagarA(duenio, unJugador.tirarDados() * renta * duenio.cantidadDeEmpresas())
 	}
 	
 }
@@ -34,6 +41,7 @@ class Campo inherits CasilleroPropiedad {
 	const property rentaFija
 	var property costoConstruccion
 	const property estancias = []
+	
 	
 	override method sosEmpresa() {
 		return false

@@ -1,21 +1,32 @@
 import Tablero.CasilleroPropiedad
 class Jugador {
-	//PRUEBA DE COMMIT
-	//prueba segundo commit
-	//prueba tercer commit
+
+
 	var property dinero = 0
 	const property propiedades = #{}
 	var property posicion
+	var property cantidadDeEmpresas = 0
+	
+	method cantidadDeEmpresas() {
+		return propiedades.sum()
+	}
 	
 	method caerEnPropiedad(unaPropiedad) {
 		posicion = unaPropiedad
+			
 		if(unaPropiedad.suDuenioEs(banco)) {
 			self.comprarPropiedad(unaPropiedad)
 		}
 		if(!unaPropiedad.suDuenioEs(self)) {
 			self.abonarRenta(unaPropiedad)		
 		}
+		
+		unaPropiedad.caeAca(self) 
 	}
+	
+	
+		
+	
 	
 	method abonarRenta(unaPropiedad) {
 		dinero -= unaPropiedad.renta()
@@ -31,6 +42,7 @@ class Jugador {
 	
 	method adquirirPropiedad(unaPropiedad) {
 		propiedades.add(unaPropiedad)
+		if(unaPropiedad.sosEmpresa()){cantidadDeEmpresas ++}
 	}
 	
 	method construirEstancia(unaEstancia,unCampo) {
@@ -43,12 +55,20 @@ class Jugador {
 	
 	method pagarPorEstancia(unCampo) {
 		dinero -= unCampo.costoConstruccion()
-		self.pagarABanco(unCampo.costoConstruccion())
+		self.pagarA(banco,unCampo.costoConstruccion())
 	}
 	
-	method pagarABanco(unMonto) {
-		banco.cobrar(unMonto)
+	method pagarA(alguien,unMonto) {
+		alguien.cobrar(unMonto)
 	}
+	
+	method tirarDados() {
+		const dado1 = 1.randomUpTo(6.0).roundUp()
+		const dado2 = 1.randomUpTo(6.0).roundUp()
+		
+		return dado1 + dado2
+	}
+	
 
 }
 
