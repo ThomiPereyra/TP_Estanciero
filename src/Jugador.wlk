@@ -1,5 +1,6 @@
 import Tablero.CasilleroPropiedad
 class Jugador {
+	//PRUEBA DE COMMIT
 	var property dinero = 0
 	const property propiedades = #{}
 	var property posicion
