@@ -41,7 +41,8 @@ object tablero {
 	const property casilleros = []
 	
 	method casillerosDesdeHasta(casilleroInicial,unNumero) {
-		return ((new ListaParticular(casillero = casilleroInicial, numero = unNumero)).listaCasillerosParticular())	
+		const listaDefinitiva = new ListaParticular(casillero = casilleroInicial, numero = unNumero)
+		return (listaDefinitiva.establecerListaCasillerosParticular(casilleroInicial,unNumero)).listaCasillerosParticular()
 	}
 	
 }
@@ -146,3 +147,5 @@ class Campo inherits CasilleroPropiedad {
 	}
 
 }
+
+const prision = new Casillero()

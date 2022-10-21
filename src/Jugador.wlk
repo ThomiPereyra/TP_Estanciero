@@ -18,7 +18,14 @@ class Jugador inherits Entidades {
 
 	const property propiedades = #{}
 	var property posicion
+	var cantidadDeDoblesSeguidos = 0
+	var property turnosQueDebePasarEnPrision = 0
 	
+	
+	method caerEnPrision() {
+		posicion = prision
+		turnosQueDebePasarEnPrision = 3
+	}
 	
 	method caerEnPropiedad(unaPropiedad) {
 		posicion = unaPropiedad
@@ -73,8 +80,19 @@ class Jugador inherits Entidades {
 	method tirarDados() {
 		const dado1 = 1.randomUpTo(6.0).roundUp()
 		const dado2 = 1.randomUpTo(6.0).roundUp()
+		if(dado1 == dado2) {
+			cantidadDeDoblesSeguidos++
+			if(cantidadDeDoblesSeguidos == 2){self.caerEnPrision()}
+		}
+		else {
+			self.reiniciarCantidadDeDoblesSeguidos()
+		}
 		
 		return dado1 + dado2
+	}
+	
+	method reiniciarCantidadDeDoblesSeguidos() {
+		cantidadDeDoblesSeguidos = 0
 	}
 	
 	method moverseSobre(casilleros) {
