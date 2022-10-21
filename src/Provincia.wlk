@@ -1,4 +1,4 @@
-import Tablero.Campo
+import Tablero.*
 class Provincia {
 	var property campos = #{}
 	

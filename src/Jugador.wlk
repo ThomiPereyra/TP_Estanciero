@@ -1,6 +1,7 @@
-import Tablero.CasilleroPropiedad
+import Tablero.*
 class Entidades {
 	var property dinero
+	var property cantidadDeEmpresas = 0
 	
 	method pagarA(alguien,unMonto) {
 		alguien.cobrar(unMonto)
@@ -17,8 +18,6 @@ class Jugador inherits Entidades {
 
 	const property propiedades = #{}
 	var property posicion
-	var property cantidadDeEmpresas = 0
-	
 	
 	
 	method caerEnPropiedad(unaPropiedad) {
@@ -40,6 +39,7 @@ class Jugador inherits Entidades {
 		dinero -= unaPropiedad.renta()
 	}
 	
+	
 	method comprarPropiedad(unaPropiedad) {
 		if(dinero >= unaPropiedad.precioInicial()) {
 			dinero -= unaPropiedad.precioInicial()
@@ -47,6 +47,7 @@ class Jugador inherits Entidades {
 			unaPropiedad.cambiarDeDuenio(self) }
 			else { throw new Exception(message = "No te alcanza la plata!")}
 	}
+	
 	
 	method adquirirPropiedad(unaPropiedad) {
 		propiedades.add(unaPropiedad)
@@ -61,6 +62,7 @@ class Jugador inherits Entidades {
 		
 	}
 	
+	
 	method pagarPorEstancia(unCampo) {
 		dinero -= unCampo.costoConstruccion()
 		self.pagarA(banco,unCampo.costoConstruccion())
@@ -73,6 +75,14 @@ class Jugador inherits Entidades {
 		const dado2 = 1.randomUpTo(6.0).roundUp()
 		
 		return dado1 + dado2
+	}
+	
+	method moverseSobre(casilleros) {
+		const ultimo = casilleros.last() 
+		
+		casilleros.forEach({ unCasillero => unCasillero.paso(self) })
+		ultimo.cayo(self)
+		posicion = ultimo		
 	}
 	
 
